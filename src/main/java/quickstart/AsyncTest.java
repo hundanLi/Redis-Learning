@@ -1,4 +1,4 @@
-package async;
+package quickstart;
 
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisFuture;
@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0.0
  * @date 2020/9/4 13:42
  */
-public class SimpleTest {
+public class AsyncTest {
     public static void main(String[] args) throws InterruptedException {
         RedisClient redisClient = RedisClient.create("redis://localhost:6379/0");
         RedisAsyncCommands<String, String> asyncCommands = redisClient.connect().async();
