@@ -4,9 +4,9 @@ import io.lettuce.core.KeyValue;
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.sync.RedisCommands;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +21,7 @@ public class StringTest {
     RedisClient redisClient;
     RedisCommands<String, String> redisCommands;
 
-    @Before
+    @BeforeEach
     public void setup() {
         String url = "redis://localhost:6379/0";
         // 创建RedisClient实例
@@ -39,9 +39,9 @@ public class StringTest {
     public void setget() {
         redisCommands.set("foo", "bar");
         String foo = redisCommands.get("foo");
-        Assert.assertEquals("bar", foo);
+        Assertions.assertEquals("bar", foo);
         boolean setnx = redisCommands.setnx("foo", "bar");
-        Assert.assertFalse(setnx);
+        Assertions.assertFalse(setnx);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class StringTest {
 
         map.put("hi", "redis");
         boolean msetnx = redisCommands.msetnx(map);
-        Assert.assertFalse(msetnx);
+        Assertions.assertFalse(msetnx);
 
     }
 
@@ -63,7 +63,7 @@ public class StringTest {
     public void setex() {
         redisCommands.setex("foo", 10, "bar");
         long foo = redisCommands.ttl("foo");
-        Assert.assertEquals(10, foo);
+        Assertions.assertEquals(10, foo);
     }
 
     @Test
@@ -71,10 +71,10 @@ public class StringTest {
         redisCommands.set("foo", "1");
         redisCommands.incr("foo");
         String foo = redisCommands.get("foo");
-        Assert.assertEquals("2", foo);
+        Assertions.assertEquals("2", foo);
         redisCommands.incrby("foo", 2);
         foo = redisCommands.get("foo");
-        Assert.assertEquals("4", foo);
+        Assertions.assertEquals("4", foo);
     }
 
     @Test
@@ -82,10 +82,10 @@ public class StringTest {
         redisCommands.set("foo", "10");
         redisCommands.decr("foo");
         String foo = redisCommands.get("foo");
-        Assert.assertEquals("9", foo);
+        Assertions.assertEquals("9", foo);
         redisCommands.decrby("foo", 2);
         foo = redisCommands.get("foo");
-        Assert.assertEquals("7", foo);
+        Assertions.assertEquals("7", foo);
     }
 
 
@@ -94,14 +94,14 @@ public class StringTest {
         redisCommands.setnx("foo", "foo");
         redisCommands.append("foo", "bar");
         String foo = redisCommands.get("foo");
-        Assert.assertEquals("foobar", foo);
+        Assertions.assertEquals("foobar", foo);
     }
 
     @Test
     public void strlen() {
         redisCommands.setnx("foo", "foo");
         long l = redisCommands.strlen("foo");
-        Assert.assertEquals(3, l);
+        Assertions.assertEquals(3, l);
     }
 
 }
