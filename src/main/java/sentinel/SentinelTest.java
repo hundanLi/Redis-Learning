@@ -11,8 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static java.awt.SystemColor.info;
-
 /**
  * @author hundanli
  * @version 1.0.0
@@ -22,8 +20,10 @@ public class SentinelTest {
 
     @Test
     void sentinelTest() {
-        RedisURI redisuri = RedisURI.create("redis://ubuntu.wsl:26379");
-        RedisClient redisClient = RedisClient.create(redisuri);
+//        RedisURI redisuri = RedisURI.create("redis://ubuntu.wsl:26379");
+//        RedisClient redisClient = RedisClient.create(redisuri);
+        RedisClient redisClient = RedisClient.create("redis-sentinel://localhost:26379,localhost:26380,localhost:26381/0#mymaster");
+
         StatefulRedisSentinelConnection<String, String> connectSentinel = redisClient.connectSentinel();
         // 获取sentinel命令接口
         RedisSentinelCommands<String, String> sentinelCommands = connectSentinel.sync();
@@ -34,17 +34,15 @@ public class SentinelTest {
 
     }
 
-
     @Test
     void commandTest() {
-        // 执行redis命令
-        RedisURI redisUri = RedisURI.Builder.sentinel("ubuntu.wsl", "mymaster").build();
-        RedisClient redisClient = RedisClient.create(redisUri);
-        StatefulRedisConnection<String, String> redisConnection = redisClient.connect();
-        RedisCommands<String, String> sync = redisConnection.sync();
-        sync.set("hello", "world");
-        Assertions.assertEquals("world", sync.get("hello"));
+        // 发送redis命令
+        RedisClient redisClient = RedisClient.create("redis-sentinel://localhost:26379,localhost:26380,localhost:26381/0#mymaster");
+        StatefulRedisConnection<String, String> connect = redisClient.connect();
+        RedisCommands<String, String> redisCommands = connect.sync();
+        redisCommands.set("hello", "world");
 
+        Assertions.assertEquals("world", redisCommands.get("hello"));
     }
 
 }
