@@ -10,6 +10,9 @@ import io.lettuce.core.masterreplica.StatefulRedisMasterReplicaConnection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author hundanli
  * @version 1.0.0
@@ -21,9 +24,13 @@ public class ReplicaTest {
     @Test
     void baseReplica() {
         RedisClient redisClient = RedisClient.create();
+        List<RedisURI> nodes = Arrays.asList(RedisURI.create("redis://localhost:6379/0"),
+                RedisURI.create("redis://localhost:6380/0"),
+                RedisURI.create("redis://localhost:6381/0"));
         StatefulRedisMasterReplicaConnection<String, String> replicaConnection =
-                MasterReplica.connect(redisClient, StringCodec.UTF8, RedisURI.create("redis://localhost:6379/0"));
+                MasterReplica.connect(redisClient, StringCodec.UTF8, nodes);
 
+        // 设置读策略，优先从主节点读取数据
         replicaConnection.setReadFrom(ReadFrom.MASTER_PREFERRED);
 
         RedisCommands<String, String> redisCommands = replicaConnection.sync();

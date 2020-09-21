@@ -1,5 +1,6 @@
 package cluster;
 
+import io.lettuce.core.ReadFrom;
 import io.lettuce.core.cluster.RedisClusterClient;
 import io.lettuce.core.cluster.api.StatefulRedisClusterConnection;
 import io.lettuce.core.cluster.api.sync.RedisAdvancedClusterCommands;
@@ -22,6 +23,8 @@ public class ClusterTest {
     void setup() {
         RedisClusterClient redisClusterClient = RedisClusterClient.create("redis://localhost:7000");
         StatefulRedisClusterConnection<String, String> connection = redisClusterClient.connect();
+        // 优先从副本节点读数据
+        connection.setReadFrom(ReadFrom.REPLICA_PREFERRED);
         commands = connection.sync();
     }
 
