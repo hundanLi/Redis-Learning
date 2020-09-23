@@ -1,4 +1,4 @@
-package cluster;
+package basic.cluster;
 
 import io.lettuce.core.ReadFrom;
 import io.lettuce.core.cluster.RedisClusterClient;

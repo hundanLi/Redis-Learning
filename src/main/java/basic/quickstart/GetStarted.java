@@ -1,4 +1,4 @@
-package quickstart;
+package basic.quickstart;
 
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;

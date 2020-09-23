@@ -1,4 +1,4 @@
-package resource;
+package basic.resource;
 
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;

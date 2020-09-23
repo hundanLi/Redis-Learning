@@ -1,4 +1,4 @@
-package command;
+package basic.command;
 
 import io.lettuce.core.Range;
 import io.lettuce.core.RedisClient;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.sound.midi.Soundbank;
 import java.util.Arrays;
 import java.util.List;
 

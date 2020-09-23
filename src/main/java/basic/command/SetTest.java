@@ -1,4 +1,4 @@
-package command;
+package basic.command;
 
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;

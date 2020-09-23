@@ -1,4 +1,4 @@
-package replica;
+package basic.replica;
 
 import io.lettuce.core.ReadFrom;
 import io.lettuce.core.RedisClient;
@@ -35,8 +35,8 @@ public class ReplicaTest {
 
         RedisCommands<String, String> redisCommands = replicaConnection.sync();
         redisCommands.flushall();
-        redisCommands.set("replica", "hello redis");
-        String replica = redisCommands.get("replica");
+        redisCommands.set("basic/replica", "hello redis");
+        String replica = redisCommands.get("basic/replica");
         Assertions.assertEquals("hello redis", replica);
 
         replicaConnection.close();

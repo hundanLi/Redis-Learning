@@ -1,4 +1,4 @@
-package command;
+package basic.command;
 
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.RedisFuture;
@@ -9,8 +9,6 @@ import io.lettuce.core.api.sync.RedisCommands;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.concurrent.ExecutionException;
 
 /**
  * @author hundanli
