@@ -1,4 +1,4 @@
-package inaction.counter;
+package inaction.counter.controller;
 
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;
