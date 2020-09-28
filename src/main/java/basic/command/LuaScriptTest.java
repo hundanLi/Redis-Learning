@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Year;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author hundanli
@@ -40,8 +42,8 @@ public class LuaScriptTest {
         String luaScript = "return {KEYS[1], KEYS[2], ARGV[1], ARGV[2]}";
         String[] keys = {"key1", "key2"};
         String[] values = {"value1", "value2"};
-        Object eval = syncCommands.eval(luaScript, ScriptOutputType.MULTI, keys, values);
-        System.out.println(eval);
+        List<String> eval = syncCommands.eval(luaScript, ScriptOutputType.MULTI, keys, values);
+        Assertions.assertEquals(Arrays.asList("key1", "key2", "value1", "value2"), eval);
     }
 
 
@@ -50,16 +52,16 @@ public class LuaScriptTest {
         String setScript = "return redis.call('set', KEYS[1], ARGV[1])";
         String[] keys = {"hello"};
         String[] values = {"lua"};
-        Object set = syncCommands.eval(setScript, ScriptOutputType.VALUE, keys, values);
+        String set = syncCommands.eval(setScript, ScriptOutputType.VALUE, keys, values);
         Assertions.assertEquals("OK", set);
 
         String getScript = "return redis.call('get', KEYS[1])";
         keys = new String[]{"hello"};
-        Object get = syncCommands.eval(getScript, ScriptOutputType.VALUE, keys);
+        String get = syncCommands.eval(getScript, ScriptOutputType.VALUE, keys);
         Assertions.assertEquals("lua", get);
 
         String delScript = "return redis.call('del', KEYS[1])";
-        Object del = syncCommands.eval(delScript, ScriptOutputType.INTEGER, keys);
+        int del = syncCommands.eval(delScript, ScriptOutputType.INTEGER, keys);
         Assertions.assertEquals(1L, del);
 
     }

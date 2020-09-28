@@ -3,3 +3,5 @@ server:
 lettuce:
   standalone:
     port: 6379
+mybatis-plus:
+  check-config-location:
