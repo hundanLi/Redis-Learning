@@ -3,5 +3,6 @@ server:
 lettuce:
   standalone:
     port: 6379
-mybatis-plus:
-  check-config-location:
+redisson:
+  host: 127.0.0.1
+  port: 6379

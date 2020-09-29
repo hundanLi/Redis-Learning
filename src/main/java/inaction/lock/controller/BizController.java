@@ -86,6 +86,8 @@ public class BizController {
                 } while (!toStop && delayTimes > 0);
                 // 告警通知，提醒人工处理，如何迫使前台线程终止？
                 log.warn("业务执行超时!");
+                // 超时释放锁
+                lockHelper.release(uuid);
             } catch (InterruptedException e) {
                 log.warn("分布式锁延时线程被终止：ThreadId={}", uuid);
             } finally {
