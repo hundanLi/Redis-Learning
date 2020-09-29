@@ -23,12 +23,11 @@ public class DistLockController {
     @Autowired
     private RedissonClient redisson;
 
-    @GetMapping("/redisson-biz")
+    @GetMapping("/redisson")
     public String biz() throws InterruptedException {
 
         RLock lock = redisson.getLock("dist-lock");
-//        boolean res = lock.tryLock(100, 10, TimeUnit.SECONDS);
-        boolean res = lock.tryLock();
+        boolean res = lock.tryLock(-1, -1, TimeUnit.SECONDS);
         if (res) {
             log.info("获取锁成功");
             try {
