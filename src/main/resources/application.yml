@@ -6,3 +6,7 @@ lettuce:
 redisson:
   host: 127.0.0.1
   port: 6379
+
+zoo:
+  host: ubuntu.wsl
+  port: 2181
